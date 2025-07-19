@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "evaluacions",
+  "info": {
+    "singularName": "evaluacion",
+    "pluralName": "evaluacions",
+    "displayName": "Evaluación"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pregunta": {
+      "type": "text"
+    },
+    "opciones": {
+      "type": "json"
+    },
+    "respuesta_correcta": {
+      "type": "text"
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": [
+        "abierta",
+        "completar",
+        "multiple",
+        "verdadero_falso"
+      ]
+    },
+    "feedback": {
+      "type": "text"
+    }
+  }
+}

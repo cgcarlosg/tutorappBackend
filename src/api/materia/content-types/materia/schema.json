@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "materias",
+  "info": {
+    "singularName": "materia",
+    "pluralName": "materias",
+    "displayName": "Materia"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "archivos_contenidos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "materia_relacionada": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tema.tema",
+      "mappedBy": "materia"
+    }
+  }
+}

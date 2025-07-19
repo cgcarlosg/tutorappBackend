@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "temas",
+  "info": {
+    "singularName": "tema",
+    "pluralName": "temas",
+    "displayName": "Tema"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "contenido": {
+      "type": "text"
+    },
+    "materia": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::materia.materia",
+      "inversedBy": "materia_relacionada"
+    }
+  }
+}
