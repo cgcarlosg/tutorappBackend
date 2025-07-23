@@ -17,21 +17,17 @@
     "descripcion": {
       "type": "text"
     },
-    "archivos_contenidos": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "materia_relacionada": {
+    "grados": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
+      "target": "api::grado.grado",
+      "mappedBy": "grado_relacionados"
+    },
+    "temas": {
+      "type": "relation",
+      "relation": "manyToMany",
       "target": "api::tema.tema",
-      "mappedBy": "materia"
+      "inversedBy": "materias"
     }
   }
 }

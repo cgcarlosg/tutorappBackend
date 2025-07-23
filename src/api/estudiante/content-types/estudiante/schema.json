@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estudiantes",
+  "info": {
+    "singularName": "estudiante",
+    "pluralName": "estudiantes",
+    "displayName": "Estudiante"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre_Completo": {
+      "type": "string"
+    },
+    "ID_Alumno": {
+      "type": "string"
+    },
+    "grado": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::grado.grado",
+      "inversedBy": "estudiantes"
+    }
+  }
+}

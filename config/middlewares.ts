@@ -9,4 +9,11 @@ export default [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: ['http://localhost:5173'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  },
+  },
 ];

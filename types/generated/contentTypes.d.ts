@@ -373,6 +373,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEstudianteEstudiante extends Struct.CollectionTypeSchema {
+  collectionName: 'estudiantes';
+  info: {
+    displayName: 'Estudiante';
+    pluralName: 'estudiantes';
+    singularName: 'estudiante';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    grado: Schema.Attribute.Relation<'manyToOne', 'api::grado.grado'>;
+    ID_Alumno: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::estudiante.estudiante'
+    > &
+      Schema.Attribute.Private;
+    Nombre_Completo: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEvaluacionEvaluacion extends Struct.CollectionTypeSchema {
   collectionName: 'evaluacions';
   info: {
@@ -407,6 +437,41 @@ export interface ApiEvaluacionEvaluacion extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGradoGrado extends Struct.CollectionTypeSchema {
+  collectionName: 'grados';
+  info: {
+    displayName: 'Grado';
+    pluralName: 'grados';
+    singularName: 'grado';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Colegio: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Descripcion: Schema.Attribute.Text;
+    estudiantes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::estudiante.estudiante'
+    >;
+    grado_relacionados: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::materia.materia'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::grado.grado'> &
+      Schema.Attribute.Private;
+    Nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMateriaMateria extends Struct.CollectionTypeSchema {
   collectionName: 'materias';
   info: {
@@ -418,25 +483,19 @@ export interface ApiMateriaMateria extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    archivos_contenidos: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     descripcion: Schema.Attribute.Text;
+    grados: Schema.Attribute.Relation<'manyToMany', 'api::grado.grado'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::materia.materia'
     > &
       Schema.Attribute.Private;
-    materia_relacionada: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::tema.tema'
-    >;
     publishedAt: Schema.Attribute.DateTime;
+    temas: Schema.Attribute.Relation<'manyToMany', 'api::tema.tema'>;
     titulo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -493,14 +552,19 @@ export interface ApiTemaTema extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Archivo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     contenido: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    grado: Schema.Attribute.Relation<'oneToOne', 'api::grado.grado'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tema.tema'> &
       Schema.Attribute.Private;
-    materia: Schema.Attribute.Relation<'manyToOne', 'api::materia.materia'>;
+    materias: Schema.Attribute.Relation<'manyToMany', 'api::materia.materia'>;
     publishedAt: Schema.Attribute.DateTime;
     titulo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -1018,7 +1082,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::estudiante.estudiante': ApiEstudianteEstudiante;
       'api::evaluacion.evaluacion': ApiEvaluacionEvaluacion;
+      'api::grado.grado': ApiGradoGrado;
       'api::materia.materia': ApiMateriaMateria;
       'api::nota.nota': ApiNotaNota;
       'api::tema.tema': ApiTemaTema;

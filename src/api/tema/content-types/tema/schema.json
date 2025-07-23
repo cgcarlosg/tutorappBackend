@@ -17,11 +17,26 @@
     "contenido": {
       "type": "text"
     },
-    "materia": {
+    "Archivo": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "materias": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::materia.materia",
-      "inversedBy": "materia_relacionada"
+      "mappedBy": "temas"
+    },
+    "grado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::grado.grado"
     }
   }
 }
